@@ -58,6 +58,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Copy docker-compose file to VPS
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "docker-compose.yaml"
+          target: "/home/chaldrak/esgis/api"
+
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -65,6 +77,8 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
+            cd /home/chaldrak/esgis/api
+
             # Arrêter et supprimer les anciens conteneurs
             docker compose down
 
@@ -73,6 +87,9 @@ jobs:
 
             # Tirer la nouvelle image
             docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+
+            # Créer le fichier .env
+            echo ${{secrets.ENV}} | base64 -d > .env
 
             # Redémarrer les conteneurs
             docker compose up -d
