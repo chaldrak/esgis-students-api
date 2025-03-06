@@ -76,6 +76,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
+          envs: REGISTRY,IMAGE_NAME # Passe les variables d'environnement à la commande SSH
           script: |
             cd /home/chaldrak/esgis/api
 
@@ -92,4 +93,7 @@ jobs:
             echo ${{secrets.ENV}} | base64 -d > .env
 
             # Redémarrer les conteneurs
-            docker compose up -d
+            # Définir les variables d'environnement REGISTRY et IMAGE_NAME pour docker compose
+            # Ces variables sont nécessaires car elles sont utilisées dans le docker-compose.yaml
+            # pour spécifier l'image à utiliser pour le service 'app'
+            REGISTRY=${{ env.REGISTRY }} IMAGE_NAME=${{ env.IMAGE_NAME }} docker compose up -d
