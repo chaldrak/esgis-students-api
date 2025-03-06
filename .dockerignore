@@ -1,0 +1,57 @@
+# IDE-specific files
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.code-workspace
+
+# Build output
+target/
+build/
+bin/
+
+# Logs
+logs/
+*.log
+
+# Environnement local
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Systèmes de contrôle de version
+.git/
+.gitignore
+
+# Caches et fichiers temporaires
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+.tmp/
+.cache/
+
+# Dépendances (gérées par Maven)
+dependency-reduced-pom.xml
+
+# Fichiers de configuration système
+.DS_Store
+Thumbs.db
+
+# Tests
+src/test/
+
+# Documentation
+README.md
+HELP.md
+docs/
+
+# Configuration de développement
+*.yml
+*.yaml
+!pom.xml

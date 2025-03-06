@@ -1,0 +1,63 @@
+services:
+  # Service pour l'application Spring Boot
+  app:
+    build: .
+    # Nom explicite du conteneur pour faciliter l'identification
+    container_name: springboot-app
+    ports:
+      - "8080:8080"
+    # Attend que MySQL soit complètement opérationnel avant de démarrer
+    depends_on:
+      mysql:
+        condition: service_healthy
+    # Variables d'environnement pour la connexion à la base de données
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/studentapp_db
+      - SPRING_DATASOURCE_USERNAME=studentapp_user
+      - SPRING_DATASOURCE_PASSWORD=secret
+    # Redémarrage automatique sauf si arrêté manuellement
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  # Service pour MySQL
+  mysql:
+    image: mysql:9.0
+    # Nom explicite du conteneur MySQL
+    container_name: mysql-db
+    # Configuration de la base de données MySQL
+    environment:
+      - MYSQL_DATABASE=studentapp_db
+      - MYSQL_USER=studentapp_user
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=verysecret
+    # Exposition du port MySQL pour accès externe
+    ports:
+      - "3306:3306"
+    # Persistance des données MySQL
+    volumes:
+      - mysql-data:/var/lib/mysql
+    # Vérification de la santé du conteneur MySQL
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # Redémarrage automatique en cas de panne
+    restart: unless-stopped
+    networks:
+      - app-network
+
+# Définition des volumes persistants
+volumes:
+  mysql-data:
+    # Nom explicite du volume pour faciliter l'identification
+    name: mysql-data
+
+# Configuration du réseau
+networks:
+  app-network:
+    # Nom explicite du réseau
+    name: app-network
+    # Utilisation du driver bridge pour la communication inter-conteneurs
+    driver: bridge
