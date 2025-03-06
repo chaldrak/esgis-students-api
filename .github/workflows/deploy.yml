@@ -68,7 +68,7 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
           source: "docker-compose.yaml"
-          target: "/home/chaldrak/esgis/api"
+          target: ${{ vars.SOURCE_PATH }} # Chemin sur le VPS où se trouve le projet
 
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v1.0.0
@@ -78,7 +78,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           envs: REGISTRY,IMAGE_NAME # Passe les variables d'environnement à la commande SSH
           script: |
-            cd /home/chaldrak/esgis/api
+            cd ${{ vars.SOURCE_PATH }} 
 
             # Arrêter et supprimer les anciens conteneurs
             docker compose down
