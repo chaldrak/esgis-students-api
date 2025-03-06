@@ -2,7 +2,7 @@ services:
   # Service pour l'application Spring Boot
   app:
     # build: .
-    image: ghcr.io/${GITHUB_REPOSITORY}:latest
+    image: ${REGISTRY}/${IMAGE_NAME}:latest
     # Nom explicite du conteneur pour faciliter l'identification
     container_name: springboot-app
     ports:
