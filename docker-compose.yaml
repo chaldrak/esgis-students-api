@@ -1,20 +1,22 @@
 services:
   # Service pour l'application Spring Boot
   app:
-    build: .
+    # build: .
+    image: ghcr.io/${GITHUB_REPOSITORY}:latest
     # Nom explicite du conteneur pour faciliter l'identification
     container_name: springboot-app
     ports:
-      - "8080:8080"
+      - "12008:8080"
+      # - "8080:8080"
     # Attend que MySQL soit complètement opérationnel avant de démarrer
     depends_on:
       mysql:
         condition: service_healthy
     # Variables d'environnement pour la connexion à la base de données
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/studentapp_db
-      - SPRING_DATASOURCE_USERNAME=studentapp_user
-      - SPRING_DATASOURCE_PASSWORD=secret
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
     # Redémarrage automatique sauf si arrêté manuellement
     restart: unless-stopped
     networks:
@@ -27,13 +29,14 @@ services:
     container_name: mysql-db
     # Configuration de la base de données MySQL
     environment:
-      - MYSQL_DATABASE=studentapp_db
-      - MYSQL_USER=studentapp_user
-      - MYSQL_PASSWORD=secret
-      - MYSQL_ROOT_PASSWORD=verysecret
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     # Exposition du port MySQL pour accès externe
     ports:
-      - "3306:3306"
+      # - "3306:3306"
+      - "12009:3306"
     # Persistance des données MySQL
     volumes:
       - mysql-data:/var/lib/mysql
