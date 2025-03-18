@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
-
 @RequiredArgsConstructor
-@RestController
-@RequestMapping("/api/persons")
 public class PersonController {
 
     private final PersonService personService;

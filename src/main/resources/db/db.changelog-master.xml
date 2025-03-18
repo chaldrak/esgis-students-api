@@ -1,0 +1,9 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <include file="classpath:db/20170503041524_add_filieres_table.xml" relativeToChangelogFile="false" />
+    <include file="classpath:db/20170503041524_added_entity_matiere.xml" relativeToChangelogFile="false" />
+    <include file="classpath:db/create_student_table.xml" relativeToChangelogFile="false" />
+    <include file="classpath:db/insert_data.xml" relativeToChangelogFile="false" />
+
+</databaseChangeLog>
