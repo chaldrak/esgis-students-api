@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1" author="zafir">
+        <createTable tableName="matieres">
+            <column name="code" type="VARCHAR(5)">
+                <constraints primaryKey="true" unique="true" uniqueConstraintName="uc_matiere_code"/>
+            </column>
+            <column name="libelle" type="text"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="21" author="zafir">
+        <createTable tableName="filiere_matieres">
+            <column name="filiere_code" type="VARCHAR(5)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="matiere_code" type="VARCHAR(5)">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1731012765027-36" author="zafir">
+        <addForeignKeyConstraint baseColumnNames="filiere_code" baseTableName="filiere_matieres"
+                                 constraintName="FK_FILIERE_ON_MATIERE" referencedColumnNames="code"
+                                 referencedTableName="filieres"/>
+    </changeSet>
+    <changeSet id="1731012765027-37" author="zafir">
+        <addForeignKeyConstraint baseColumnNames="matiere_code" baseTableName="filiere_matieres"
+                                 constraintName="FK_MATIERE_ON_FILIERES" referencedColumnNames="code"
+                                 referencedTableName="matieres"/>
+    </changeSet>
+
+</databaseChangeLog>

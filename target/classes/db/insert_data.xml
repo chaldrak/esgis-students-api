@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="xml-1" author="zafir">
+        <insert tableName="filieres">
+            <column name="code" value="AL" />
+            <column name="libelle" value="Architecture logicielle" />
+            <column name="slug" value="al" />
+        </insert>
+        <insert tableName="filieres">
+            <column name="code" value="IA" />
+            <column name="libelle" value="Intelligence artificielle" />
+            <column name="slug" value="ia" />
+        </insert>
+        <insert tableName="filieres">
+            <column name="code" value="CCA" />
+            <column name="libelle" value="Comptabilité controle et audit" />
+            <column name="slug" value="cca" />
+        </insert>
+    </changeSet>
+
+    <changeSet id="xml-2" author="zafir">
+        <insert tableName="matieres">
+            <column name="code" value="FLT" />
+            <column name="libelle" value="Flutter" />
+        </insert>
+        <insert tableName="matieres">
+            <column name="code" value="RO" />
+            <column name="libelle" value="Recherche opérationnelle" />
+        </insert>
+        <insert tableName="filieres">
+            <column name="code" value="ANI" />
+            <column name="libelle" value="Anglais informatique" />
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>

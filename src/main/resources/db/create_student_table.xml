@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="12" author="zafir">
+        <createTable tableName="students">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_students" />
+            </column>
+            <column name="matricule" type="VARCHAR(20)">
+                <constraints unique="true" uniqueConstraintName="uc_students_matricule"/>
+            </column>
+            <column name="nom" type="text"/>
+            <column name="prenom" type="text"/>
+            <column name="gender" type="text"/>
+            <column name="country" type="text"/>
+            <column name="password" type="text"/>
+            <column name="created_at" type="DATETIME"/>
+            <column name="updated_at" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="13" author="zafir">
+        <createTable tableName="notes">
+            <column name="id" type="int">
+                <constraints primaryKey="true" primaryKeyName="pk_students"/>
+            </column>
+            <column name="student_id" type="int"/>
+            <column name="matiere_code" type="VARCHAR(5)"/>
+            <column name="compo_continu" type="double"/>
+            <column name="comp_final" type="double"/>
+            <column name="created_at" type="DATETIME"/>
+            <column name="updated_at" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1731012765027-38" author="zafir">
+        <addForeignKeyConstraint baseColumnNames="student_id" baseTableName="notes"
+                                 constraintName="FK_STUDENT_ON_NOTE" referencedColumnNames="id"
+                                 referencedTableName="students"/>
+    </changeSet>
+    <changeSet id="1731012765027-39" author="zafir">
+        <addForeignKeyConstraint baseColumnNames="matiere_code" baseTableName="notes"
+                                 constraintName="FK_MATIERE_ON_NOTES" referencedColumnNames="code"
+                                 referencedTableName="matieres"/>
+    </changeSet>
+
+</databaseChangeLog>

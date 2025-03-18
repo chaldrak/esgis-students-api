@@ -24,7 +24,7 @@ public class CreateStudentAccountService implements CreateAccountInterface {
     @Override
     @Transactional
     public NewStudentAccountResponse create(NewStudentAccountRequest request) {
-        if (!request.getLastname().equals(request.getConfirmed())){
+        if (!request.getPassword().equals(request.getConfirmed())){
             throw new PasswordAndConfirmedNotEqualException(
                     "les mots de passes ne sont pas identique."
             );
