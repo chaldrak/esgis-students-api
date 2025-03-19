@@ -1,8 +1,8 @@
 services:
   # Service pour l'application Spring Boot
   app:
-    # build: .
-    image: ${REGISTRY}/${IMAGE_NAME}:latest
+    build: .
+    # image: ${REGISTRY}/${IMAGE_NAME}:latest
     # Nom explicite du conteneur pour faciliter l'identification
     container_name: springboot-app
     ports:
