@@ -1,24 +1,26 @@
 services:
   # Service pour l'application Spring Boot
- # app:
-    # build: .
-   # image: ${REGISTRY}/${IMAGE_NAME}:latest
+  app:
+   # build: .
+    image: ${REGISTRY}/${IMAGE_NAME}:latest
     # Nom explicite du conteneur pour faciliter l'identification
-   # container_name: springboot-app
-   # ports:
-     # - "12008:8080"
+    container_name: springboot-app
+    ports:
+      - "12008:8080"
       # - "8080:8080"
     # Attend que MySQL soit complètement opérationnel avant de démarrer
-   # depends_on:
-    #  mysql:
-       # condition: service_healthy
+    depends_on:
+      mysql:
+        condition: service_healthy
     # Variables d'environnement pour la connexion à la base de données
-   # env_file:
-     # - .env
+    environment:
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
     # Redémarrage automatique sauf si arrêté manuellement
    # restart: unless-stopped
-   # networks:
-      #- app-network
+    networks:
+      - app-network
 
   # Service pour MySQL
   mysql:
@@ -26,8 +28,11 @@ services:
     # Nom explicite du conteneur MySQL
     container_name: mysql-db
     # Configuration de la base de données MySQL
-    env_file:
-      - .env
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     # Exposition du port MySQL pour accès externe
     ports:
       # - "3306:3306"
