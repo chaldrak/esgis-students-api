@@ -1,7 +1,7 @@
 services:
   # Service pour l'application Spring Boot
   app:
-   # build: .
+    # build: .
     image: ${REGISTRY}/${IMAGE_NAME}:latest
     # Nom explicite du conteneur pour faciliter l'identification
     container_name: springboot-app
@@ -18,7 +18,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
       - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
     # Redémarrage automatique sauf si arrêté manuellement
-   # restart: unless-stopped
+    restart: unless-stopped
     networks:
       - app-network
 
