@@ -42,8 +42,8 @@ public class StudentController {
 
     @Operation(summary = "Get all students account")
     @GetMapping(produces = "application/json")
-    private ResponseEntity<PaginateResponse<StudentRecord>> allStudentsAccount(@RequestParam(required = false) Integer page,
-                                                                               @RequestParam(required = false) Integer size){
+    private ResponseEntity<PaginateResponse<StudentRecord>> allStudentsAccount(@RequestParam(required = false,name = "page",defaultValue = "0") Integer page,
+                                                                               @RequestParam(required = false,defaultValue = "5") Integer size){
         return ResponseEntity.ok(allStudentAccountService.allAccounts(page, size));
     }
 
@@ -53,19 +53,8 @@ public class StudentController {
         return ResponseEntity.ok(updatedStudentAccountDataService.update(matricule, request));
     }
 
-    @Operation(summary = "Update students account")
-    @PatchMapping("{matricule}")
-    public ResponseEntity updateDataStudent(@PathVariable String matricule){
-        return null;
-    }
-
     @DeleteMapping ("{matricule}")
     public ResponseEntity deletedStudent(@PathVariable String matricule){
-        return null;
-    }
-
-    @GetMapping("{student}/matieres")
-    private ResponseEntity allMatieres(@PathVariable String student){
         return null;
     }
 }

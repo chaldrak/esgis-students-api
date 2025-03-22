@@ -34,10 +34,16 @@ public class AllStudentAccountService implements AllAccountsCreated {
                         student.getGender().name()
                 );
             }).toList();
+            response.setData(recordList);
+            response.setTotalPages(studentPage.getTotalPages());
+            response.setTotalElements(studentPage.getTotalElements());
+            response.setSize(studentPage.getSize());
+            response.setPage(studentPage.getNumber());
+            return response;
         }
         response.setData(recordList);
-        response.setTotalPages(studentPage.getTotalPages());
-        response.setTotalElements(studentPage.getTotalElements());
+        response.setTotalPages(0);
+        response.setTotalElements(0);
         response.setSize(studentPage.getSize());
         response.setPage(studentPage.getNumber());
         return response;
